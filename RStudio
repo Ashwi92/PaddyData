@@ -1,0 +1,50 @@
+> #Load Data
+> Paddy_Yala = read.csv("yala.csv" , header = TRUE)
+> Paddy_Maha = read.csv("maha.csv" , header = TRUE)
+> 
+> Paddy_Yala = Paddy_Yala[61,]
+> Paddy_Yala
+   Yala.Season Sown.000.Acres Sown.000.Ha Harvested.000.Acres Harvested.000.Ha. Average.Yield.Bushels.Acre
+61        2012            901         365                 754               305                      80.39
+   Average.Yield.Kg.Ha Production.000.Bushels Production.000.Mt.
+61                4145                  54107               1129
+> 
+> Paddy_Maha = Paddy_Maha[61,]
+> Paddy_Maha
+   Maha.Season Sown.000.Acres Sown.000.Ha Harvested.000.Acres Harvested.000.Ha. Average.Yield.Bushels.Acre
+61     2011/12           1734         702                1692               684                       86.2
+   Average.Yield.Kg.Ha Production.000.Bushels Production.000.Mt.
+61                4444                 130212               2717
+> 
+> par(mfrow=c(1,2))
+> 
+> #Sown Area vs Season Pie chart
+> Sown_Area = rbind(Paddy_Yala$Sown.000.Acres,Paddy_Maha$Sown.000.Acres)
+> lbls = c("Yala","Maha")
+> p1=pie(Sown_Area,labels=lbls, main="Sown")
+> 
+> #Harvest vs Season Pie chart
+> Harvest = rbind(Paddy_Yala$Harvested.000.Acres,Paddy_Maha$Harvested.000.Acres)
+> p2 =pie(Harvest,labels=lbls, main="Harvest")
+> 
+> #Average Yield vs Season Pie Chart
+> Average_Yield = rbind(Paddy_Yala$Average.Yield.Bushels.Acre,Paddy_Maha$Average.Yield.Bushels.Acre)
+> p3 = pie(Average_Yield,labels = lbls, main="Average Yield")
+> 
+> #Production vs Season Pie Chart
+> Production = rbind(Paddy_Yala$Production.000.Mt.,Paddy_Maha$Production.000.Mt.)
+> p4 = pie(Average_Yield,labels = lbls, main="Production")
+> 
+> #Summary bar chart 
+> #Create the input vectors.
+> colors = c("green","orange","brown")
+> x <- c("Maha","Yala")
+> z <- c("Sown","Harvest","Production")
+> 
+> # Create the matrix of the values.
+> Values <- matrix(c(1804,1218,1515,1209,1996,1899), nrow = 3, ncol = 2, byrow = TRUE)
+> 
+> # Create the bar chart
+> barplot(Values, main = "2012 Paddy Data Summary", names.arg = x, xlab = "Season", ylab = "Acres", col = colors)
+> # Add the legend to the chart
+> legend("topright", z, cex = 0.56, fill = colors)
